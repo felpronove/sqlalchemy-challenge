@@ -36,17 +36,17 @@ def welcome():
     )
 
 #Create route for the precipitation levels
-@app.route("/api/v1.0/precipitation")
-def precipitation():
-    """Convert the query results to a dictionary using date as the key and prcp as the value."""
-    """Return the JSON representation of your dictionary."""
-    session=Session(engine)
+#@app.route("/api/v1.0/precipitation")
+#def precipitation():
+    #"""Convert the query results to a dictionary using date as the key and prcp as the value."""
+    #"""Return the JSON representation of your dictionary."""
+    #session=Session(engine)
 
-    last_date=session.query(func.max(Measurements.date)).first() 
-    twelve_months=dt.date(2017, 8, 23)-dt.timedelta(days=365)
+    #last_date=session.query(func.max(Measurements.date)).first() 
+    #twelve_months=dt.date(2017, 8, 23)-dt.timedelta(days=365)
 
-    climate_results=session.query(Measurements.date, Measurements.prcp).\
-    filter(Measurements.date >= twelve_months).all()
+    #climate_results=session.query(Measurements.date, Measurements.prcp).\
+    #filter(Measurements.date >= twelve_months).all()
 
 @app.route("/api/v1.0/stations")
 def stations():
@@ -66,20 +66,23 @@ def stations():
 
     return jsonify(all_stations)
 
-@app.route("/api/v1.0/tobs")
-def tobs():
-    """Query the dates and temperature observations of the most active station for the last year of data"""
-    """Return a JSON list of temperature observations (TOBS) for the previous year."""
+#@app.route("/api/v1.0/tobs")
+#def tobs():
+    #"""Query the dates and temperature observations of the most active station for the last year of data"""
+    #"""Return a JSON list of temperature observations (TOBS) for the previous year."""
 
-    session=Session(engine)
+    #session=Session(engine)
 
-    results=session.query(Stations.)
+    #results=session.query(Stations.)
 
-@app.route("/api/v1.0/<start>")
-def start():
-    """Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range."""
-    """When given the start only, calculate TMIN, TAVG, and TMAX for all dates greater than and equal to the start date."""
-    session=Session(engine)
+#@app.route("/api/v1.0/<start>")
+#def start():
+    #"""Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range."""
+    #"""When given the start only, calculate TMIN, TAVG, and TMAX for all dates greater than and equal to the start date."""
+    #session=Session(engine)
 
-    results=session.query(Measurements.station, func.min(Measurements.tobs), func.max(Measurements.tobs), func.avg(Measurements.tobs)).\
-    group_by(Measurements.station).all()
+    #results=session.query(Measurements.station, func.min(Measurements.tobs), func.max(Measurements.tobs), func.avg(Measurements.tobs)).\
+    #group_by(Measurements.station).all()
+
+if __name__ == "__main__":
+    app.run(debug=True)
